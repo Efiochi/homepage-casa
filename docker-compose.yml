@@ -1,0 +1,26 @@
+services:
+  homepage-casa:
+    build: .
+    container_name: homepage-casa
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3090}:3090"
+    environment:
+      - NODE_ENV=production
+      - PORT=3090
+      - TZ=${TZ:-America/Argentina/Cordoba}
+      - WEATHER_LAT=${WEATHER_LAT:--31.4187}
+      - WEATHER_LON=${WEATHER_LON:--64.1954}
+      - WEATHER_CITY=${WEATHER_CITY:-Córdoba Capital}
+      - PERSON_1_NAME=${PERSON_1_NAME:-Emi}
+      - PERSON_1_COLOR=${PERSON_1_COLOR:-#4f8cff}
+      - PERSON_1_ICS_URLS=${PERSON_1_ICS_URLS:-https://calendar.google.com/calendar/ical/emif422%40gmail.com/public/basic.ics}
+      - PERSON_2_NAME=${PERSON_2_NAME:-Natali}
+      - PERSON_2_COLOR=${PERSON_2_COLOR:-#ff6fa8}
+      - PERSON_2_ICS_URLS=${PERSON_2_ICS_URLS:-}
+      - NUTRIPLAN_URL=${NUTRIPLAN_URL:-http://192.168.100.89:3080}
+      - MEAL_LUNCH_FROM=${MEAL_LUNCH_FROM:-11:00}
+      - MEAL_SNACK_FROM=${MEAL_SNACK_FROM:-16:00}
+      - MEAL_DINNER_FROM=${MEAL_DINNER_FROM:-19:30}
+      - NIGHT_START=${NIGHT_START:-23:00}
+      - NIGHT_END=${NIGHT_END:-06:00}

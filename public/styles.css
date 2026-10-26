@@ -1,0 +1,742 @@
+:root {
+  --bg-main: #0b0f17;
+  --bg-panel: #131a26;
+  --bg-card: #1a2333;
+  --bg-card-active: #1f2d44;
+  --border-subtle: #263248;
+  --border-active: #38bdf8;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #8b9bb4;
+  --accent-blue: #4f8cff;
+  --accent-pink: #ff6fa8;
+  --accent-green: #34d399;
+  --accent-amber: #fbbf24;
+  --accent-red: #f87171;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Modo noche (23:00 a 06:00): negros profundos y menor luminancia para no encandilar */
+body.night-mode {
+  --bg-main: #04060a;
+  --bg-panel: #0a0e15;
+  --bg-card: #101622;
+  --bg-card-active: #152033;
+  --border-subtle: #1b2436;
+  --text-primary: #c8d3e0;
+  --text-secondary: #9aa8bc;
+  --text-muted: #67768c;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 12px 16px 14px;
+  gap: 12px;
+}
+
+/* ================= BARRA SUPERIOR ================= */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 10px 18px;
+  flex-shrink: 0;
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.clock-time {
+  font-size: 2.65rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+
+.clock-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.clock-date {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.people-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.legend-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-weather-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 6px 12px;
+}
+
+.header-weather-icon {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+}
+
+.header-weather-temp {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.header-weather-city {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sync-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 5px 11px;
+}
+
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-green);
+}
+
+.sync-badge.is-stale .sync-dot {
+  background-color: var(--accent-amber);
+}
+
+.sync-badge.is-error .sync-dot {
+  background-color: var(--accent-red);
+}
+
+/* ================= GRILLA DE 3 COLUMNAS ================= */
+.columns-grid {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr 1.25fr;
+  gap: 12px;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--bg-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 15px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-icon {
+  font-size: 1.15rem;
+}
+
+.panel-title {
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.panel-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.panel-badge.badge-demo {
+  color: var(--accent-amber);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+/* Scroll vertical independiente dentro de cada columna */
+.panel-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 12px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-subtle);
+  border-radius: 4px;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+/* ================= COLUMNA 1: AGENDA ================= */
+.cal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cal-section-header {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  padding-bottom: 2px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cal-event-card {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 9px 11px;
+}
+
+.cal-color-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 6px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cal-color-segment {
+  flex: 1;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.cal-event-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.cal-event-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cal-event-time {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.cal-event-time.is-allday {
+  color: var(--accent-amber);
+}
+
+.cal-owners-pills {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cal-owner-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: #0b0f17;
+}
+
+.cal-event-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  word-wrap: break-word;
+}
+
+.cal-event-sub {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.cal-demo-notice {
+  font-size: 0.8rem;
+  color: var(--accent-amber);
+  background-color: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* ================= COLUMNA 2: CLIMA ================= */
+.weather-hero {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weather-hero-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.weather-temp-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-temp-big {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.weather-condition-label {
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.weather-hero-icon {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.weather-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 9px;
+}
+
+.weather-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.weather-stat-val {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.weather-subblock {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.weather-sub-title {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+
+.hourly-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.hour-chip {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  padding: 7px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.hour-chip-time {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.hour-chip-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.hour-chip-temp {
+  font-size: 0.96rem;
+  font-weight: 700;
+}
+
+.hour-chip-rain {
+  font-size: 0.72rem;
+  color: #60a5fa;
+  font-weight: 600;
+}
+
+.daily-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.daily-row {
+  display: grid;
+  grid-template-columns: 52px 28px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9px;
+  padding: 7px 10px;
+}
+
+.daily-day {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.daily-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.daily-desc {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.daily-temps {
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.daily-min {
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* ================= COLUMNA 3: COMIDAS DE HOY ================= */
+.meal-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 13px 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+}
+
+.meal-card.is-active {
+  background-color: var(--bg-card-active);
+  border: 2px solid var(--border-active);
+}
+
+.meal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.meal-slot-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.meal-card.is-active .meal-slot-label {
+  color: var(--border-active);
+}
+
+.meal-now-pill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background-color: var(--border-active);
+  color: #06131f;
+  padding: 2px 9px;
+  border-radius: 999px;
+}
+
+.meal-dish-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.meal-simple-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+/* Adelanto de mañana para descongelar */
+.meal-tomorrow-box {
+  background-color: #141d2b;
+  border: 1px dashed #334563;
+  border-radius: 11px;
+  padding: 10px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.meal-tomorrow-header {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-amber);
+  margin-bottom: 2px;
+}
+
+.meal-tomorrow-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.meal-tomorrow-tag {
+  font-weight: 700;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.meal-tomorrow-val {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* Tarjeta de próximo feriado nacional en Agenda */
+.cal-holiday-card {
+  background-color: #141e2e;
+  border: 1px solid #2b3d59;
+  border-radius: 10px;
+  padding: 9px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cal-holiday-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cal-holiday-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7dd3fc;
+}
+
+.cal-holiday-countdown {
+  font-size: 0.76rem;
+  font-weight: 800;
+  background-color: #1e3a5f;
+  color: #bae6fd;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.cal-holiday-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Avisos prácticos del clima (paraguas / ropa / temperatura) */
+.weather-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.weather-tip-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 9px;
+  padding: 8px 11px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.3;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-card);
+}
+
+.weather-tip-banner.tip-warning {
+  border-color: #92400e;
+  background-color: #26190c;
+  color: #fde68a;
+}
+
+.weather-tip-banner.tip-good {
+  border-color: #115e59;
+  background-color: #0e2322;
+  color: #a7f3d0;
+}
+
+.weather-tip-banner.tip-info {
+  border-color: #1e40af;
+  background-color: #111c35;
+  color: #bfdbfe;
+}
+
+.weather-tip-icon {
+  font-size: 1.05rem;
+  flex-shrink: 0;
+}
+
+/* Ajuste responsivo por si se abre en pantallas más chicas */
+@media (max-width: 960px) {
+  .clock-time {
+    font-size: 2rem;
+  }
+  .columns-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

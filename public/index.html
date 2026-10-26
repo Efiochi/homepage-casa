@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0b0f17" />
+  <title>HomePageCasa · Dashboard</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="dashboard" class="dashboard">
+    <!-- Barra superior: Reloj, Fecha, Leyenda de personas y Resumen de clima -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div id="clock-time" class="clock-time">--:--</div>
+        <div class="clock-meta">
+          <div id="clock-date" class="clock-date">Cargando fecha…</div>
+          <div id="people-legend" class="people-legend"></div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <div id="header-weather-pill" class="header-weather-pill">
+          <span id="header-weather-icon" class="header-weather-icon"></span>
+          <span id="header-weather-temp" class="header-weather-temp">--°</span>
+          <span id="header-weather-city" class="header-weather-city">Córdoba</span>
+        </div>
+        <div id="sync-badge" class="sync-badge" title="Estado de sincronización">
+          <span class="sync-dot"></span>
+          <span id="sync-text">Sincronizando…</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Grilla principal de 3 columnas con scroll independiente vertical -->
+    <main class="columns-grid">
+      <!-- Columna 1: Agenda combinada Emi + Natali -->
+      <section class="panel" aria-label="Agenda">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="panel-icon">📅</span>
+            <h2 class="panel-title">Agenda</h2>
+          </div>
+          <span id="calendar-badge" class="panel-badge">Emi &amp; Natali</span>
+        </div>
+        <div id="col-calendar" class="panel-scroll">
+          <div class="empty-state">Cargando calendarios…</div>
+        </div>
+      </section>
+
+      <!-- Columna 2: Clima Córdoba Capital -->
+      <section class="panel" aria-label="Clima Córdoba Capital">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="panel-icon">🌤️</span>
+            <h2 class="panel-title">Clima · Córdoba</h2>
+          </div>
+          <span id="weather-badge" class="panel-badge">Actualizando</span>
+        </div>
+        <div id="col-weather" class="panel-scroll">
+          <div class="empty-state">Cargando pronóstico de Córdoba Capital…</div>
+        </div>
+      </section>
+
+      <!-- Columna 3: Comidas de hoy (Seguimiento Dietario) -->
+      <section class="panel" aria-label="Comidas de hoy">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <span class="panel-icon">🍽️</span>
+            <h2 class="panel-title">Comidas de hoy</h2>
+          </div>
+          <span id="meals-badge" class="panel-badge">NutriPlan</span>
+        </div>
+        <div id="col-meals" class="panel-scroll">
+          <div class="empty-state">Cargando plan nutricional del día…</div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
